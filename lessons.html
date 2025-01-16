@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أعمال الطلاب</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('new-educational-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #218838;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .form-container {
+            text-align: center;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+        }
+        .form-container input[type="file"] {
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #218838;
+        }
+        footer {
+            background-color: #218838;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>قسم أعمال الطلاب</h1>
+    </header>
+    <nav>
+        <a href="index.html">الرئـيسية</a>
+        <a href="tasks.html">الـمهام</a>
+        <a href="lessons.html">أعمــال الطـلاب</a>
+        <a href="about.html">عن الموقــع</a>
+    </nav>
+
+    <div class="form-container">
+        <h2>رفع العمل</h2>
+        <form id="file-upload-form">
+            <label for="image-upload">رفع صورة العمل:</label><br>
+            <input type="file" id="image-upload" name="image" accept="image/*"><br>
+            
+            <label for="video-upload">رفع فيديو العمل:</label><br>
+            <input type="file" id="video-upload" name="video" accept="video/*"><br>
+            
+            <button type="button" onclick="authenticateAndUpload()">رفع العمل</button>
+        </form>
+    </div>
+
+    <footer>
+        أ.سعيدة العفـارية - مبادرة وقفة معلمة
+    </footer>
+
+    <!-- Google API Client Library -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        let auth2;
+
+        // 1. Load the API Client and authenticate
+        function authenticateAndUpload() {
+            gapi.auth2.getAuthInstance().signIn().then(function () {
+                uploadFiles();
+            });
+        }
+
+        function initClient() {
+            gapi.client.init({
+                apiKey: 'YOUR_API_KEY',
+                clientId: 'YOUR_CLIENT_ID',
+                scope: 'https://www.googleapis.com/auth/drive.file',
+                discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+            }).then(function () {
+                auth2 = gapi.auth2.getAuthInstance();
+            });
+        }
+
+        // 2. Upload the file to Google Drive
+        function uploadFiles() {
+            const fileInputImage = document.getElementById('image-upload');
+            const fileInputVideo = document.getElementById('video-upload');
+            const file = fileInputImage.files[0] || fileInputVideo.files[0];
+            const fileMetadata = {
+                'name': file.name,
+                'mimeType': file.type,
+            };
+            const media = {
+                mimeType: file.type,
+                body: file,
+            };
+
+            const request = gapi.client.drive.files.create({
+                resource: fileMetadata,
+                media: media,
+                fields: 'id',
+            });
+
+            request.execute(function (file) {
+                alert('تم رفع العمل بنجاح! ID: ' + file.id);
+            });
+        }
+
+        // Load the API client and auth2 library
+        gapi.load('client:auth2', initClient);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لغــة الضــاد</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('new-educational-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+        }
+        header img {
+            position: center;
+            top: 10px;
+            left: 10px;
+            width: 90px;
+            height: 90px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #218838;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .welcome {
+            text-align: center;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .welcome h1 {
+            font-size: 36px;
+            color: #218838;
+        }
+        .welcome p {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        .login-form {
+            text-align: center;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .login-form input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            width: 80%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-form button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #218838;
+        }
+        .interactive-section {
+            text-align: center;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .interactive-section h2 {
+            font-size: 28px;
+            color: #218838;
+            margin-bottom: 15px;
+        }
+        .interactive-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .interactive-section ul li {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        footer {
+            background-color: #218838;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.querySelector('.login-form').style.display = 'none';
+                document.querySelector('.welcome').style.display = 'block';
+                document.querySelector('.interactive-section').style.display = 'block';
+                document.getElementById('student-name').textContent = username;
+            } else {
+                document.querySelector('.login-form').style.display = 'block';
+            }
+        });
+
+        function login() {
+            const username = document.getElementById('username').value;
+            if (username) {
+                localStorage.setItem('username', username);
+                document.querySelector('.login-form').style.display = 'none';
+                document.querySelector('.welcome').style.display = 'block';
+                document.querySelector('.interactive-section').style.display = 'block';
+                document.getElementById('student-name').textContent = username;
+            } else {
+                alert('يرجى إدخال اسمك قبل تسجيل الدخول.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="school-logo.JPG" alt="شعار المدرسة">
+        <h1>لغــة الضــاد</h1>
+    </header>
+   <nav>
+        <a href="index.html">الرئـيسية</a>
+        <a href="tasks.html">الـمهام</a>
+        <a href="lessons.html">أعمــال الطـلاب</a>
+        <a href="about.html">عن الموقــع</a>
+    </nav>
+
+    <div class="login-form">
+        <h2>تسجيل الدخول</h2>
+        <input type="text" id="username" placeholder="أدخل اسمك">
+        <br>
+        <button onclick="login()">تسجيل الدخول</button>
+    </div>
+
+    <div class="welcome">
+        <h1>أهلاً وسهلاً، <span id="student-name">طالبنا العزيز</span>!</h1>
+        <p>مرحباً بك في موقعنا التعليمي. نتمنى لك تجربة ممتعة ومفيدة!</p>
+    </div>
+
+    <div class="interactive-section" style="display: none;">
+        <h2>ماذا يمكنك أن تفعل هنا؟</h2>
+        <ul>
+            <li>تعلم قواعد اللغة العربية بأسلوب تفاعلي.</li>
+            <li>تصحيح الأخطاء اللغوية وفهمها بسهولة.</li>
+            <li>تحديات يومية لتطوير مهاراتك.</li>
+            <li>مشاركة إنجازاتك مع أصدقائك.</li>
+        </ul>
+    </div>
+
+    <footer>
+         أ.سعيدة العفـارية - مبادرة وقفة معلمة
+    </footer>
+</body>
+</html>
+
+
+
+
+
+
